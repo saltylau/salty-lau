@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SALTY LAU — Lance ta marque avec Pinterest Ads</title>
+<meta name="description" content="La première formation e-commerce de France axée Pinterest Ads. Drop 01 — 25 places, par @salty.lau.">
+<style>
+  :root{
+    --bg:#0a0a0b;
+    --card:#141415;
+    --card-line:rgba(255,255,255,.07);
+    --text:#f6f4f5;
+    --muted:#98939a;
+    --pink:#e88ab8;
+    --pink-soft:#f2c3da;
+    --violet:#e88ab8;
+    --blue:#e88ab8;
+    --grad:linear-gradient(100deg,#ffd9ea 0%,#e88ab8 100%);
+    --grad-btn:linear-gradient(135deg,#e88ab8,#b25f8f);
+    --green:#e88ab8;
+    --radius:22px;
+    --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  ::selection{background:var(--pink);color:#fff}
+
+  .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
+  h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.1}
+  h2{font-size:clamp(30px,4.6vw,48px);margin-bottom:16px}
+  .section{padding:104px 0;position:relative}
+  .muted{color:var(--muted)}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:660px}
+  .lead b,.lead strong{color:var(--text);font-weight:700}
+
+  /* eyebrow — comme les slides */
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:12.5px;letter-spacing:.22em;text-transform:uppercase;
+    color:#b7b3c2;font-weight:700;margin-bottom:22px;
+  }
+  .eyebrow .dot{width:8px;height:8px;border-radius:50%;background:var(--pink);box-shadow:0 0 12px var(--pink);animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  /* halos d'ambiance — bordeaux / violet / bleu */
+  .glow{position:absolute;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:0}
+  .glow.wine{background:rgba(180,85,130,.16)}
+  .glow.purple{background:rgba(150,70,110,.14)}
+  .glow.blue{background:rgba(120,60,95,.12)}
+
+  /* cartes glassy */
+  .card{
+    background:linear-gradient(180deg,#17171a,#111113);
+    border:1px solid var(--card-line);
+    border-radius:calc(var(--radius) + 6px);
+    padding:32px;
+    position:relative;overflow:hidden;
+    transition:transform .3s ease,border-color .3s ease;
+  }
+  .card::before{
+    content:"";position:absolute;top:-45%;left:-25%;width:85%;height:110%;
+    background:radial-gradient(ellipse at center,rgba(232,138,184,.14),transparent 68%);
+    pointer-events:none;
+  }
+  .card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.14)}
+  .card.pink-line{border-color:rgba(232,138,184,.3)}
+  .card.pink-line:hover{border-color:rgba(232,138,184,.55)}
+
+  /* tuile aurora — halo lumineux façon widget iOS */
+  .aurora{border:1px solid rgba(255,255,255,.16);border-radius:30px}
+  .aurora::before{
+    content:"";position:absolute;inset:-18%;
+    background:
+      radial-gradient(48% 40% at 50% 14%, rgba(255,145,75,.95), transparent 58%),
+      radial-gradient(85% 70% at 50% 34%, rgba(242,85,152,.92), transparent 70%),
+      radial-gradient(55% 50% at 6% 92%, rgba(178,192,255,.85), transparent 62%),
+      radial-gradient(55% 50% at 94% 92%, rgba(195,205,255,.8), transparent 62%),
+      radial-gradient(70% 55% at 50% 112%, rgba(255,242,250,.7), transparent 65%),
+      linear-gradient(180deg, rgba(150,70,130,.55), rgba(105,95,175,.5));
+    filter:blur(26px);
+  }
+  .aurora > *{position:relative;z-index:1}
+  .aurora, .aurora h2, .aurora h3, .aurora b{color:#fff}
+  .aurora .cap, .aurora .sub-stats span, .aurora p{color:rgba(255,255,255,.88)}
+  .aurora .sub-stats{border-top-color:rgba(255,255,255,.3)}
+  .aurora .handle{color:rgba(255,255,255,.6)}
+  .aurora .eyebrow{color:rgba(255,255,255,.85)}
+  .aurora .eyebrow .dot{background:#fff;box-shadow:0 0 12px #fff}
+  .aurora .big .arrow{background:none;-webkit-text-fill-color:#fff;color:#fff}
+
+  /* variante douce — lisible pour les blocs texte */
+  .aurora-soft::before{
+    content:"";position:absolute;inset:-25%;
+    background:
+      radial-gradient(50% 42% at 50% 8%, rgba(240,90,152,.55), transparent 62%),
+      radial-gradient(40% 38% at 30% 0%, rgba(255,150,80,.35), transparent 60%),
+      radial-gradient(85% 75% at 8% 95%, rgba(185,195,255,.32), transparent 62%),
+      radial-gradient(85% 75% at 92% 95%, rgba(255,238,246,.26), transparent 65%);
+    filter:blur(30px);
+  }
+  .aurora-soft > *{position:relative;z-index:1}
+
+  /* pastille numérotée dégradée — comme les slides */
+  .chip{
+    width:38px;height:38px;border-radius:12px;flex-shrink:0;
+    background:linear-gradient(135deg,rgba(232,138,184,.22),rgba(232,138,184,.06));
+    border:1px solid rgba(232,138,184,.3);
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;font-size:15px;color:var(--pink-soft);
+  }
+
+  /* badge vérifié */
+  .verif{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;font-weight:800;
+    color:var(--green);border:1.5px solid rgba(61,220,151,.5);
+    padding:6px 14px;border-radius:8px;
+  }
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.visible{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}
+
+  /* ---------- nav ---------- */
+  nav{position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(8,8,13,.75);backdrop-filter:blur(16px);border-bottom:1px solid rgba(255,255,255,.07)}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
+  .logo{font-weight:800;font-size:17px;letter-spacing:.01em;text-decoration:none;color:var(--text);text-transform:lowercase}
+  .nav-cta{
+    font-size:13.5px;font-weight:800;text-decoration:none;color:#0c0c12;
+    background:#fff;padding:11px 22px;border-radius:100px;
+    box-shadow:0 8px 24px rgba(0,0,0,.35);
+    transition:transform .2s ease,opacity .2s ease;
+  }
+  .nav-cta:hover{transform:translateY(-2px);opacity:.9}
+
+  /* ---------- hero ---------- */
+  header{min-height:100svh;display:flex;align-items:center;padding:150px 0 90px;position:relative;overflow:hidden}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:60px;align-items:center;position:relative;z-index:2}
+  h1.hero-title{font-size:clamp(34px,4.7vw,56px);font-weight:900;margin-bottom:22px;letter-spacing:-.03em}
+
+  .waitlist{display:flex;gap:12px;max-width:520px;flex-wrap:wrap;margin-top:34px}
+  .waitlist input{
+    flex:1;min-width:220px;background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.14);border-radius:100px;
+    padding:16px 22px;font-size:15px;font-family:var(--font);outline:none;color:var(--text);
+    transition:border .2s ease;
+  }
+  .waitlist input:focus{border-color:var(--pink)}
+  .waitlist input::placeholder{color:#5d5a68}
+  .btn{
+    cursor:pointer;border:none;font-family:var(--font);
+    background:#fff;color:#0c0c12;font-size:15px;font-weight:800;
+    padding:16px 30px;border-radius:100px;
+    box-shadow:0 10px 30px rgba(0,0,0,.4);
+    transition:transform .2s ease,opacity .2s ease;
+  }
+  .btn:hover{transform:translateY(-2px);opacity:.9}
+  .form-note{font-size:13px;color:var(--muted);margin-top:14px}
+  .success{
+    display:none;align-items:center;gap:10px;margin-top:34px;
+    border:1px solid rgba(232,138,184,.45);background:rgba(232,138,184,.07);
+    padding:16px 22px;border-radius:var(--radius);max-width:520px;font-size:15px;font-weight:600;
+  }
+
+  .places{margin-top:40px;max-width:520px}
+  .demand2{
+    display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:100px;
+    padding:12px 20px;backdrop-filter:blur(8px);
+  }
+  .avatars{display:flex;align-items:center}
+  .avatars span{
+    width:34px;height:34px;border-radius:50%;flex-shrink:0;
+    display:flex;align-items:center;justify-content:center;
+    font-size:12px;font-weight:800;color:#fff;
+    border:2px solid var(--bg);margin-left:-10px;
+    background:linear-gradient(135deg,#a05d81,#6e3f5a);
+  }
+  .avatars span:first-child{margin-left:0;background:linear-gradient(135deg,#c97ba4,#8a4d70)}
+  .avatars span:nth-child(3){background:linear-gradient(135deg,#7d4763,#54303f)}
+  .avatars span.more{background:rgba(255,255,255,.1);font-size:11px}
+  .d2txt{display:flex;flex-direction:column;line-height:1.25}
+  .d2txt b{font-size:15px;font-weight:800}
+  .d2sub{font-size:12.5px;color:var(--muted)}
+  .d2live{
+    margin-left:auto;display:inline-flex;align-items:center;gap:8px;
+    font-size:12px;font-weight:700;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;
+  }
+  .d2dot{width:8px;height:8px;border-radius:50%;background:var(--green);box-shadow:0 0 10px var(--green);animation:pulse 2s infinite}
+  .dbadge{
+    font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+    color:var(--violet);border:1px solid rgba(232,138,184,.4);background:rgba(232,138,184,.07);
+    padding:8px 14px;border-radius:100px;
+  }
+
+  /* hero stat card */
+  .hero-card{padding:40px;text-align:center;position:relative}
+  .hero-card .eyebrow{justify-content:center;margin-bottom:18px}
+  .hero-card .big{font-size:clamp(50px,5vw,66px);font-weight:900;letter-spacing:-.03em;line-height:1}
+  .hero-card .big .arrow{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero-card .cap{font-size:14px;color:var(--muted);margin-top:12px}
+  .hero-card .sub-stats{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:30px;padding-top:26px;border-top:1px solid rgba(255,255,255,.08)}
+  .hero-card .sub-stats b{display:block;font-size:22px;font-weight:900}
+  .hero-card .sub-stats span{font-size:12.5px;color:var(--muted)}
+  .hero-card .verif{margin-top:26px}
+  .handle{position:absolute;top:24px;right:28px;font-size:12.5px;color:#4b4856;font-weight:600}
+  .aurora.hero-card .cap,.aurora.hero-card .sub-stats span{color:rgba(255,255,255,.95);text-shadow:0 1px 8px rgba(0,0,0,.35)}
+  .aurora.hero-card .handle{color:rgba(255,255,255,.7)}
+  .aurora.hero-card .sub-stats{border-top-color:rgba(255,255,255,.35)}
+  .aurora.hero-card .big,.aurora.hero-card .sub-stats b{text-shadow:0 2px 14px rgba(0,0,0,.3)}
+
+  /* ---------- proof strip ---------- */
+  .proof{border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07);background:rgba(255,255,255,.015);position:relative;overflow:hidden}
+  .proof-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;padding:48px 0;text-align:center}
+  .proof-num{font-size:clamp(26px,3vw,38px);font-weight:900;letter-spacing:-.02em}
+  .proof-num.g{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .proof-label{font-size:13px;color:var(--muted);margin-top:6px}
+
+  /* ---------- vs panels ---------- */
+  .split{display:grid;grid-template-columns:.85fr auto 1.15fr;gap:22px;margin-top:54px;align-items:stretch}
+  .big-panel{background:linear-gradient(150deg,rgba(232,138,184,.1),#141415 55%);padding:40px}
+  .big-panel h3{font-size:clamp(26px,2.8vw,34px)}
+  .big-panel .hl{margin-top:18px;font-weight:800;font-size:clamp(17px,1.8vw,21px);color:var(--text);letter-spacing:-.01em}
+  .vs{align-self:center;font-weight:800;color:#5d5a68;font-size:14px;letter-spacing:.1em}
+  .panel .p-eyebrow{font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#7a7787;font-weight:700;margin-bottom:16px}
+  .panel h3{font-size:clamp(22px,2.4vw,30px);margin-bottom:14px;letter-spacing:-.02em}
+  .panel p{font-size:14.5px;color:var(--muted)}
+
+  /* liste conséquences (pastilles) */
+  .rows{display:flex;flex-direction:column;gap:16px;margin-top:54px}
+  .row{display:flex;gap:20px;align-items:flex-start;padding:26px 30px}
+  .row .txt b{display:block;font-size:17px;font-weight:800;margin-bottom:4px}
+  .row .txt p{font-size:14.5px;color:var(--muted)}
+
+  /* ---------- timeline étude de cas ---------- */
+  .t-title{margin-top:54px}
+  .t-title h3{font-size:clamp(21px,2.4vw,28px);letter-spacing:-.02em}
+  .t-title p{font-size:14.5px;color:var(--muted);margin-top:8px;max-width:560px}
+  .timeline{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:28px}
+  .t-card{padding:26px}
+  .t-card .t-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:10px}
+  .t-card .t-date{font-weight:800;font-size:16.5px}
+  .t-card .t-roas{font-weight:900;font-size:18px;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .t-card .t-roas.dim{background:none;color:#5d5a68}
+  .t-card p{font-size:14px;color:var(--muted)}
+  .t-card p b{color:var(--text)}
+
+  /* ---------- modules ---------- */
+  .modules{margin-top:50px;display:flex;flex-direction:column;gap:14px}
+  .module{background:var(--card);border:1px solid var(--card-line);border-radius:var(--radius);overflow:hidden;transition:border-color .25s ease}
+  .module.open{border-color:rgba(232,138,184,.45)}
+  .module-head{display:flex;align-items:center;gap:20px;padding:22px 26px;cursor:pointer;user-select:none}
+  .module-head .chip{width:34px;height:34px;font-size:13.5px;border-radius:10px}
+  .module-head .t{flex:1;font-weight:700;font-size:16.5px}
+  .module-head .chev{transition:transform .3s ease;color:var(--muted);font-weight:700;flex-shrink:0}
+  .module.open .chev{transform:rotate(45deg);color:var(--pink)}
+  .module-body{max-height:0;overflow:hidden;transition:max-height .4s ease}
+  .module-body p{padding:0 26px 24px 80px;font-size:14.5px;color:var(--muted)}
+
+  /* labels de section du programme */
+  .sec-label{
+    display:flex;align-items:center;gap:12px;
+    margin:52px 0 20px;font-weight:800;font-size:19px;letter-spacing:-.01em;
+  }
+  .sec-label span{
+    font-size:11.5px;letter-spacing:.2em;text-transform:uppercase;font-weight:800;
+    background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .sec-label + .modules{margin-top:0}
+
+  /* intervenants */
+  /* offres */
+  .offers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px;align-items:stretch}
+  .offer{display:flex;flex-direction:column;padding:36px 30px;position:relative}
+  .o-tag{
+    position:absolute;top:-13px;left:50%;transform:translateX(-50%);white-space:nowrap;
+    font-size:11px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;
+    background:var(--grad-btn);color:#fff;padding:6px 16px;border-radius:100px;
+  }
+  .o-name{font-size:13px;letter-spacing:.18em;text-transform:uppercase;font-weight:800;color:#b7b3c2}
+  .o-price{font-size:38px;font-weight:900;letter-spacing:-.02em;margin:14px 0 6px}
+  .o-price small{display:block;font-size:13px;font-weight:500;color:var(--muted);letter-spacing:0;margin-top:4px}
+  .offer ul{list-style:none;margin:20px 0 26px;flex:1}
+  .offer li{padding:8px 0;font-size:14.5px;color:var(--muted);display:flex;gap:10px;align-items:flex-start}
+  .offer li::before{content:"✦";color:var(--pink);flex-shrink:0;font-size:13px;margin-top:2px}
+  .o-btn{text-align:center;text-decoration:none;font-size:14px;padding:14px 20px}
+  @media(max-width:920px){.offers{grid-template-columns:1fr;margin-top:56px}}
+
+  /* pour qui + étapes */
+  .who{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .who-card h3{font-size:19px;margin-bottom:10px}
+  .who-card p{font-size:14.5px;color:var(--muted)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:50px}
+  .step{padding:30px}
+  .step .chip{margin-bottom:16px}
+  .step h3{font-size:18px;margin-bottom:8px}
+  .step p{font-size:14.5px;color:var(--muted)}
+  @media(max-width:920px){.who,.steps{grid-template-columns:1fr}}
+
+  /* bannière pro — pleine largeur */
+  .pro-band{
+    position:relative;overflow:hidden;
+    border-top:1px solid rgba(255,255,255,.08);border-bottom:1px solid rgba(255,255,255,.08);
+    background:#101012;padding:64px 0;
+  }
+  .pro-band::before{
+    content:"";position:absolute;inset:-40% -10%;
+    background:
+      radial-gradient(40% 55% at 12% 20%, rgba(240,90,152,.4), transparent 60%),
+      radial-gradient(35% 50% at 88% 85%, rgba(185,195,255,.25), transparent 60%),
+      radial-gradient(30% 45% at 55% 0%, rgba(255,150,80,.18), transparent 60%);
+    filter:blur(40px);pointer-events:none;
+  }
+  .pro-band-inner{display:flex;justify-content:space-between;align-items:center;gap:34px;flex-wrap:wrap;position:relative;z-index:1}
+
+  .speakers-line{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:8px}
+  .sp-label{font-weight:800;font-size:14px}
+  .sp-pill{border:1px solid var(--card-line);background:var(--card);border-radius:100px;padding:9px 18px;font-size:13.5px;color:var(--muted)}
+  .sp-pill b{color:var(--text)}
+
+  /* ---------- fondatrice ---------- */
+  .founder{display:grid;grid-template-columns:380px 1fr;gap:56px;align-items:center}
+  .portrait{
+    aspect-ratio:4/5;border-radius:var(--radius);
+    background:linear-gradient(160deg,rgba(180,85,130,.28),rgba(18,17,19,.95) 55%,rgba(120,60,95,.22));
+    border:1px solid rgba(255,255,255,.12);
+    display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;
+  }
+  .portrait::after{content:"📷 Ta photo ici";color:var(--muted);font-size:14px}
+  .portrait .tag{
+    position:absolute;bottom:18px;left:18px;right:18px;
+    background:rgba(8,8,13,.82);backdrop-filter:blur(10px);
+    border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:12px 16px;font-size:13px;color:var(--muted);
+  }
+  .portrait .tag b{display:block;font-size:14.5px;color:var(--text)}
+  .founder-txt p{color:var(--muted);margin-bottom:16px;font-size:15.5px}
+  .founder-txt p strong{color:var(--text)}
+  .quote{
+    border-left:3px solid;border-image:var(--grad) 1;
+    padding:6px 0 6px 20px;font-size:18px;font-weight:800;margin:26px 0;letter-spacing:-.01em;
+  }
+
+  /* ---------- stack ---------- */
+  .stack{margin-top:50px;background:var(--card);border:1px solid var(--card-line);border-radius:calc(var(--radius) + 4px);overflow:hidden}
+  .stack-row{display:flex;align-items:center;gap:18px;padding:22px 30px;border-bottom:1px solid rgba(255,255,255,.06);font-size:15.5px}
+  .stack-row:last-of-type{border-bottom:none}
+  .stack-row .chip{width:34px;height:34px;font-size:15px;border-radius:10px}
+  .stack-row .what{flex:1;font-weight:600}
+  .stack-row .what small{display:block;color:var(--muted);font-size:13px;margin-top:2px;font-weight:400}
+  .stack-total{
+    background:linear-gradient(135deg,rgba(232,138,184,.12),rgba(232,138,184,.04));
+    border-top:1px solid rgba(232,138,184,.3);
+    padding:30px;text-align:center;
+  }
+  .stack-total .old{color:var(--muted);font-size:15px}
+  .stack-total .new{font-size:30px;font-weight:900;margin-top:6px;letter-spacing:-.02em}
+  .stack-total .new small{font-size:15px;font-weight:500;color:var(--muted)}
+
+  .guarantee{margin-top:56px;display:flex;gap:24px;align-items:flex-start;padding:34px}
+  .guarantee .shield{font-size:34px;flex-shrink:0}
+  .guarantee h3{font-size:19px;margin-bottom:8px}
+  .guarantee p{color:var(--muted);font-size:14.5px}
+
+  .faq{margin-top:50px;display:flex;flex-direction:column;gap:14px;max-width:840px}
+  .faq .module-body p{padding-left:26px}
+
+  /* ---------- final ---------- */
+  .final{text-align:center;padding:130px 0;position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.07)}
+  .final h2{font-size:clamp(32px,5vw,54px)}
+  .final .lead{margin:18px auto 0}
+  .final .waitlist{margin:36px auto 0;justify-content:center}
+  .final .success{margin:36px auto 0}
+
+  footer{border-top:1px solid rgba(255,255,255,.07);padding:32px 0;font-size:13px;color:#5d5a68}
+  .foot{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+  .foot b{color:var(--muted)}
+
+  .pager{position:absolute;bottom:26px;right:32px;font-size:12.5px;color:#4b4856;font-weight:600;z-index:2}
+
+  @media(max-width:920px){
+    .hero-grid{grid-template-columns:1fr;gap:44px}
+    .split{grid-template-columns:1fr}
+    .vs{justify-self:center}
+    .proof-grid{grid-template-columns:repeat(2,1fr);gap:34px 16px}
+    .timeline{grid-template-columns:1fr 1fr}
+    .founder{grid-template-columns:1fr;gap:36px}
+    .portrait{max-width:360px}
+    .section{padding:78px 0}
+    .module-body p{padding-left:26px}
+    .nav-handle{display:none}
+  }
+  @media(max-width:600px){
+    .timeline{grid-template-columns:1fr}
+    header{padding-top:120px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-inner">
+    <a class="logo" href="#top">salty.lau</a>
+    <a class="nav-cta" href="#waitlist">Rejoindre le Drop 01</a>
+  </div>
+</nav>
+
+<!-- ================= HERO ================= -->
+<header id="top">
+  <div class="glow wine" style="width:640px;height:640px;top:-200px;left:-180px"></div>
+  <div class="glow blue" style="width:480px;height:480px;top:-140px;right:-120px"></div>
+  <div class="glow purple" style="width:560px;height:560px;bottom:-220px;right:8%"></div>
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow"><span class="dot"></span>Drop 01 · Pinterest Ads · 25 places</span>
+      <h1 class="hero-title">Lance ta marque avec <span class="grad">Pinterest Ads</span>.</h1>
+      <p class="lead"><strong>La première formation e-commerce de France axée Pinterest Ads.</strong> Pendant que tout le monde brûle son budget sur Meta, un canal reste quasi vide — je t'apprends à en faire ton canal principal.</p>
+
+      <form class="waitlist" id="form-hero" name="waitlist-hero" method="POST" data-netlify="true">
+        <input type="hidden" name="form-name" value="waitlist-hero">
+        <input type="email" name="email" placeholder="ton@email.com" required>
+        <button class="btn" type="submit">Réserver ma place</button>
+      </form>
+      <div class="success" id="success-hero">✦&nbsp; C'est noté. Tu seras prévenue en priorité à l'ouverture du Drop 01.</div>
+      <p class="form-note">25 places seulement. La liste d'attente a accès 24h avant tout le monde.</p>
+
+      <div class="places">
+        <div class="demand2">
+          <div class="avatars"><span>C</span><span>M</span><span>A</span><span class="more" id="avmore">+284</span></div>
+          <div class="d2txt"><b><span id="count">287</span> demandes</b><span class="d2sub">pour 25 places · Drop 01</span></div>
+          <span class="d2live"><span class="d2dot"></span>Liste ouverte</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card aurora hero-card reveal">
+      <span class="handle">@salty.lau</span>
+      <span class="eyebrow"><span class="dot"></span>Le potentiel Pinterest</span>
+      <div class="big">3 <span class="arrow">→</span> 17</div>
+      <div class="cap">ROAS blended, du mois de test au meilleur mois</div>
+      <div class="sub-stats" style="grid-template-columns:1fr">
+        <div><b>25 € → +3 500 €</b><span>du petit produit au luxe — seule l'image de marque compte</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= PROOF ================= -->
+<div class="proof">
+  <div class="wrap proof-grid">
+    <div class="reveal"><div class="proof-num g">600 M+</div><div class="proof-label">utilisateurs actifs / mois dans le monde</div></div>
+    <div class="reveal d1"><div class="proof-num">19 M</div><div class="proof-label">utilisateurs en France — 5ᵉ marché mondial</div></div>
+    <div class="reveal d2"><div class="proof-num g">96 %</div><div class="proof-label">des recherches sans mention de marque</div></div>
+    <div class="reveal d3"><div class="proof-num">70 %</div><div class="proof-label">de femmes — une audience en mode projet</div></div>
+  </div>
+</div>
+
+<!-- ================= CONSTAT ================= -->
+<section class="section">
+  <div class="glow wine" style="width:500px;height:500px;top:10%;left:-220px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Le constat</span>
+    <h2 class="reveal d1">90 % des gens qui lancent Pinterest Ads échouent.<br><span class="grad">Et ce n'est pas une question de budget.</span></h2>
+    <p class="lead reveal d2">C'est qu'ils arrivent sur Pinterest <strong>avec la stratégie Meta</strong> : mêmes créas, mêmes réflexes, mêmes campagnes. Sauf que Pinterest ne fonctionne pas comme Meta — et tant que tu t'en sers comme Meta, il ne se passe rien.</p>
+
+    <div class="split">
+      <div class="card panel reveal">
+        <div class="p-eyebrow">Instagram · TikTok</div>
+        <h3>On tue le temps</h3>
+        <p>Tu interromps quelqu'un qui est venu se divertir. Il faut « stopper le scroll » d'un utilisateur, attirer son attention, et le convertir. Et tu te bats contre des millions d'annonceurs pour le faire.</p>
+      </div>
+      <div class="vs reveal d1">VS</div>
+      <div class="card panel aurora-soft big-panel reveal d2">
+        <div class="p-eyebrow" style="color:var(--pink)">Pinterest</div>
+        <h3>On tape une recherche</h3>
+        <p>« Idée sac rentrée ». L'utilisatrice est en mode projet, elle cherche activement, avec une intention d'achat — et dans <b style="color:var(--text)">96 % des cas, elle n'a pas encore choisi sa marque</b>.</p>
+        <p class="hl">Il y a une place à prendre. <span class="grad">C'est la tienne.</span></p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ================= ÉTUDE DE CAS ================= -->
+<section class="section" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)">
+  <div class="glow purple" style="width:520px;height:520px;bottom:-200px;right:-180px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Scaling · Trajectoire type</span>
+    <h2 class="reveal d1">« Pinterest, ça ne marche pas pour mon produit. » <span class="grad">Faux.</span></h2>
+    <p class="lead reveal d2">Du produit à <strong>25 €</strong> au produit à <strong>+3 500 €</strong>, la logique est la même. Voici à quoi ressemble la trajectoire d'un compte bien géré — y compris la partie que personne ne montre : <strong>le mois 1 n'est jamais rentable.</strong></p>
+
+    <div class="t-title reveal">
+      <h3>Une stratégie long terme, <span class="grad">construite avec moi.</span></h3>
+      <p>Le programme est à toi à vie, et le groupe vit chaque semaine : <b style="color:var(--text)">liste winners, lives et nouvelles vidéos chaque mois</b>, au rythme de ce qui change sur Pinterest et l'e-commerce. Tu avances à ton rythme, je suis là avec mon équipe sur toute la trajectoire — pas juste au mois 1.</p>
+    </div>
+
+    <div class="timeline">
+      <div class="card t-card reveal"><div class="t-head"><span class="t-date">Mois 1</span><span class="t-roas dim">test</span></div><p>Lancement : 2 campagnes. <b>Mois de test</b>, pas de rentabilité — et c'est normal.</p></div>
+      <div class="card t-card reveal d1"><div class="t-head"><span class="t-date">Mois 2-3</span><span class="t-roas">ça monte</span></div><p>Créas &amp; audiences gagnantes identifiées → <b>double-down</b>. Le ROAS décolle.</p></div>
+      <div class="card t-card reveal d2"><div class="t-head"><span class="t-date">Mois 6</span><span class="t-roas">scale</span></div><p><b>Expansion pays</b> en quelques semaines. Ne plus jamais dépendre d'un seul marché.</p></div>
+      <div class="card t-card pink-line reveal d3"><div class="t-head"><span class="t-date">Mois 12</span><span class="t-roas">rentable</span></div><p><b>Les meilleurs mois arrivent ici.</b> Plusieurs campagnes en parallèle, rentable en scaling.</p></div>
+    </div>
+
+    <p class="lead reveal" style="margin-top:44px"><strong>Pas de hack magique.</strong> De la patience dans les mois lents, de l'analyse créa, et la bonne stratégie quand Pinterest change. C'est ce qui sépare les comptes qui multiplient leur ROAS de ceux qui coupent tout au premier creux — et c'est exactement ce que tu apprends dans le Drop 01.</p>
+  </div>
+</section>
+
+<!-- ================= POUR QUI ================= -->
+<section class="section">
+  <div class="glow blue" style="width:460px;height:460px;top:-120px;left:-180px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Pour qui</span>
+    <h2 class="reveal d1">Où que tu en sois, <span class="grad">tu as ta place.</span></h2>
+    <div class="who">
+      <div class="card who-card reveal">
+        <h3>Tu pars de zéro</h3>
+        <p>Tu veux lancer ta première marque sur un canal encore libre. Le programme te prend au module 1 et t'emmène jusqu'au scaling.</p>
+      </div>
+      <div class="card who-card reveal d1">
+        <h3>Ta boutique tourne déjà</h3>
+        <p>Tu veux ajouter Pinterest avant que tout le monde s'y mette. File directement à la Section B, le cœur du programme.</p>
+      </div>
+      <div class="card who-card reveal d2">
+        <h3>Tu dépends de Meta</h3>
+        <p>Chaque hausse de CPM te fait mal. Il est temps d'avoir un deuxième canal d'acquisition qui t'appartient.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROGRAMME ================= -->
+<section class="section">
+  <div class="glow wine" style="width:460px;height:460px;top:20%;right:-200px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Le programme · 5 sections · 23 modules</span>
+    <h2 class="reveal d1">De zéro à ta marque <span class="grad">propulsée par Pinterest.</span></h2>
+
+    <div class="modules" style="margin-top:44px">
+      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🧱</span><span class="t">Les fondations de ta marque</span><span class="d2sub">5 modules</span></div></div>
+      <div class="module pink-line reveal"><div class="module-head" style="cursor:default"><span class="chip">📌</span><span class="t">Pinterest Ads — deviens un expert</span><span class="d2sub">9 modules</span></div></div>
+      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🚀</span><span class="t">Compléter &amp; scaler<small style="display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:2px">Meta, TikTok Ads, email marketing — construis ton écosystème</small></span><span class="d2sub">3 modules</span></div></div>
+      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🔍</span><span class="t">Analyse concurrentielle, veille &amp; études de cas</span><span class="d2sub">3 modules</span></div></div>
+      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🎁</span><span class="t">Bonus<small style="display:block;font-weight:400;color:var(--muted);font-size:12.5px;margin-top:2px">Communauté, Claude IA, Higgsfield, et plus</small></span><span class="d2sub">3 modules</span></div></div>
+    </div>
+    <p class="lead reveal" style="margin-top:26px;font-size:14.5px">Le détail complet des 23 modules est réservé aux membres du Drop 01.</p>
+  </div>
+</section>
+
+<!-- ================= COMMENT ÇA SE PASSE ================= -->
+<section class="section">
+  <div class="glow wine" style="width:440px;height:440px;bottom:-160px;left:-180px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Comment ça se passe</span>
+    <h2 class="reveal d1">Simple. <span class="grad">Et vivant.</span></h2>
+    <div class="steps">
+      <div class="card step reveal"><span class="chip">1</span><h3>Tu rejoins le Drop 01</h3><p>25 places, dans l'ordre de la liste d'attente. Tu accèdes à tout, immédiatement.</p></div>
+      <div class="card step reveal d1"><span class="chip">2</span><h3>Tu avances à ton rythme</h3><p>Accès à vie aux 23 modules, du produit au scaling Pinterest.</p></div>
+      <div class="card step reveal d2"><span class="chip">3</span><h3>Tu reviens chaque mois</h3><p>Nouvelles vidéos tous les mois, lives réguliers, communauté active. La formation vit au rythme de Pinterest.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FONDATRICE ================= -->
+<section class="section" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)">
+  <div class="glow blue" style="width:460px;height:460px;top:-120px;right:-160px"></div>
+  <div class="wrap">
+    <div class="founder">
+      <div class="portrait reveal">
+        <div class="tag"><b>Salty — @salty.lau</b>Fondatrice e-commerce · Pinterest Ads FR</div>
+      </div>
+      <div class="founder-txt">
+        <span class="eyebrow reveal"><span class="dot"></span>Qui te parle</span>
+        <h2 class="reveal d1">Salut, moi c'est <span class="grad">Salty.</span></h2>
+        <p class="reveal d2">Je fais tourner mes marques depuis 2 ans sur Pinterest Ads. Et si presque personne ne s'y met en France, ce n'est pas parce que c'est difficile — c'est parce que <strong>tout le monde l'a mal comprise</strong>.</p>
+        <p class="reveal d2">J'ai construit mes propres marques en partant de zéro, et je les scale encore aujourd'hui — on les retrouve chez <strong>Nature &amp; Découvertes, au Printemps</strong>, et ailleurs. Je gère mes comptes Pinterest tous les jours : les campagnes, les créas, les mots-clés. Ce que je t'apprends n'a pas 3 ans de retard — <strong>c'est ce que je fais actuellement pour moi-même</strong>.</p>
+        <div class="quote reveal d3">"Je t'apprends ce que je fais, pas ce que j'ai lu."</div>
+        <div class="speakers-line reveal d3">
+          <span class="sp-label">Avec des intervenants réguliers :</span>
+          <span class="sp-pill"><b>Expert IA</b> — 500k abonnés Instagram, pour tes créas &amp; visuels avec l'IA</span>
+          <span class="sp-pill"><b>Intervenant surprise</b> — révélé aux membres du Drop 01</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STACK ================= -->
+<section class="section">
+  <div class="glow purple" style="width:500px;height:500px;bottom:-180px;left:-200px"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Drop 01 · 25 places</span>
+    <h2 class="reveal d1">Ce que tu reçois.</h2>
+    <div class="stack reveal d2">
+      <div class="stack-row"><span class="chip">✦</span><div class="what">La formation complète en vidéo<small>Des fondations de ta marque au scaling Pinterest — accès à vie</small></div></div>
+      <div class="stack-row"><span class="chip">✦</span><div class="what">Le décryptage de vraies campagnes<small>ROAS 3 → 17, mois par mois, avec les décisions réelles — y compris les dips</small></div></div>
+      <div class="stack-row"><span class="chip">✦</span><div class="what">Mes templates &amp; checklists<small>Listes de mots-clés, checklist identité visuelle, structure de campagne, système de test</small></div></div>
+      <div class="stack-row"><span class="chip">✦</span><div class="what">Le Pin Brand Club — la communauté privée<small>Le winner Pinterest de la semaine, l'entraide entre fondatrices, tes épingles et campagnes reviewées</small></div></div>
+      <div class="stack-row"><span class="chip">✦</span><div class="what">De nouvelles vidéos chaque mois<small>Le club s'enrichit en continu, au rythme de ce qui change sur Pinterest</small></div></div>
+      <div class="stack-row"><span class="chip">✦</span><div class="what">Sessions de questions/réponses en direct<small>Des lives réguliers, disponibles en replay</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRO — bannière ================= -->
+<section class="pro-band">
+  <div class="wrap pro-band-inner">
+    <div>
+      <span class="eyebrow" style="margin-bottom:10px"><span class="dot"></span>Salty Lau Pro</span>
+      <h2 style="font-size:clamp(22px,2.8vw,32px);margin-bottom:8px">Ta marque tourne déjà ? <span class="grad">Délègue ta partie Pinterest Ads.</span></h2>
+      <p class="muted" style="font-size:15px;max-width:560px">Tu veux confier la partie Pinterest Ads de ta marque plutôt que de te former ? Envoie-moi une demande, je prends un nombre limité de comptes.</p>
+      <span class="dbadge" style="margin:16px 0 0;display:inline-block">4 comptes sur 6 déjà pris — 2 places restantes</span>
+    </div>
+    <a class="btn" href="mailto:contact@saltylau.com?subject=Demande%20gestion%20Pinterest%20Ads" style="text-decoration:none;white-space:nowrap">Envoyer une demande</a>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section" style="background:rgba(255,255,255,.015);border-top:1px solid rgba(255,255,255,.07)">
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>FAQ</span>
+    <h2 class="reveal d1">Les questions qu'on me pose.</h2>
+    <div class="faq">
+      <div class="module reveal"><div class="module-head"><span class="t">Pinterest, c'est pas que la déco et le mariage ?</span><span class="chev">＋</span></div><div class="module-body"><p>Ce sont les secteurs les plus visibles, pas les seuls. Ça tourne aussi sur du mobilier, des produits du quotidien, du dev perso. Le vrai critère : ton produit est-il visuel, et s'inscrit-il dans un projet ? Je fais tourner des produits de 25 € à plus de 3 500 € — du petit produit au luxe. Le prix ne décide pas, l'image de marque oui.</p></div></div>
+      <div class="module reveal"><div class="module-head"><span class="t">J'ai déjà testé Pinterest Ads, ça n'a pas marché.</span><span class="chev">＋</span></div><div class="module-body"><p>Neuf fois sur dix : attribution mal lue, campagne coupée trop tôt, ou créas façon Meta. Tu ne l'as pas ratée — on te l'a apprise comme du Facebook. C'est exactement le problème que cette formation corrige, module par module.</p></div></div>
+      <div class="module reveal"><div class="module-head"><span class="t">Je pars de zéro, sans marque. C'est pour moi ?</span><span class="chev">＋</span></div><div class="module-body"><p>Oui — le programme commence par les fondations de ta marque (produit, positionnement, boutique) avant de toucher aux ads. Si tu as déjà une boutique qui vend, tu iras directement aux modules Pinterest.</p></div></div>
+      <div class="module reveal"><div class="module-head"><span class="t">Pourquoi seulement 25 places ?</span><span class="chev">＋</span></div><div class="module-body"><p>Parce que je review moi-même les profils, les épingles et les campagnes des membres pendant les 8 premières semaines. Au-delà de 25, la qualité s'effondre. Je préfère limiter et rouvrir un Drop 02 plus tard.</p></div></div>
+      <div class="module reveal"><div class="module-head"><span class="t">Il faut combien de budget pub ?</span><span class="chev">＋</span></div><div class="module-body"><p>Moins que sur Meta : les coûts pub y sont nettement plus bas, donc tu peux tester sans un gros budget. Le montant exact dépend de ton produit et de ton marché — on le définit ensemble dans la formation.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final" id="waitlist">
+  <div class="glow wine" style="width:560px;height:560px;bottom:-260px;left:8%"></div>
+  <div class="glow purple" style="width:560px;height:560px;bottom:-260px;right:8%"></div>
+  <div class="wrap">
+    <span class="eyebrow reveal"><span class="dot"></span>Drop 01 · 25 places</span>
+    <h2 class="reveal d1">Le Drop 01 ouvre bientôt.<br><span class="grad">25 places. Pas une de plus.</span></h2>
+    <p class="lead reveal d2" style="max-width:540px">Inscris-toi à la liste d'attente : tu reçois l'accès 24h avant tout le monde, et le prix de lancement réservé au premier drop.</p>
+    <form class="waitlist reveal d3" id="form-final" name="waitlist-final" method="POST" data-netlify="true">
+      <input type="hidden" name="form-name" value="waitlist-final">
+      <input type="email" name="email" placeholder="ton@email.com" required>
+      <button class="btn" type="submit">Réserver ma place</button>
+    </form>
+    <div class="success" id="success-final">✦&nbsp; C'est noté. Tu seras prévenue en priorité à l'ouverture du Drop 01.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap foot">
+    <span><b>@salty.lau</b> — © 2026 Salty Lau. Tous droits réservés.</span>
+    <span>Mentions légales · CGV · Contact</span>
+  </div>
+</footer>
+
+<script>
+  // Reveal on scroll
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target);} });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+  // Compteur liste d'attente (change RESERVED avant chaque campagne)
+  const RESERVED = 287; // ← nombre d'inscrits déjà sur la liste d'attente
+  const PLACES = 25;
+  let inscrits = RESERVED;
+  const countEl = document.getElementById('count');
+  const avmoreEl = document.getElementById('avmore');
+  const renderGauge = ()=>{
+    countEl.textContent = inscrits;
+    if(avmoreEl) avmoreEl.textContent = '+' + (inscrits - 3);
+  };
+  let started = false;
+  const startCounter = ()=>{
+    if(started) return; started = true;
+    let c = Math.max(0, inscrits - 20);
+    const step = ()=>{ c++; countEl.textContent = c; if(c < inscrits) setTimeout(step, 55); };
+    step();
+  };
+  new IntersectionObserver((e)=>{ if(e[0].isIntersecting) startCounter(); },{threshold:.3}).observe(document.querySelector('.places'));
+  renderGauge();
+
+  // Accordéons
+  document.querySelectorAll('.module-head').forEach(head=>{
+    head.addEventListener('click',()=>{
+      const mod = head.parentElement;
+      const body = mod.querySelector('.module-body');
+      if(!body) return;
+      if(mod.classList.contains('open')){ mod.classList.remove('open'); body.style.maxHeight = 0; }
+      else { mod.classList.add('open'); body.style.maxHeight = body.scrollHeight + 'px'; }
+    });
+  });
+
+  // Formulaires waitlist — envoi vers Netlify Forms + affichage du succès
+  const bind = (formId, successId)=>{
+    const form = document.getElementById(formId);
+    form.addEventListener('submit',(ev)=>{
+      ev.preventDefault();
+      const data = new URLSearchParams(new FormData(form)).toString();
+      fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:data }).catch(()=>{});
+      form.style.display = 'none';
+      document.getElementById(successId).style.display = 'flex';
+      inscrits++; started = true; renderGauge();   // la jauge grimpe en direct
+    });
+  };
+  bind('form-hero','success-hero');
+  bind('form-final','success-final');
+</script>
+</body>
+</html>
