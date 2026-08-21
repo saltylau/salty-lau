@@ -480,6 +480,13 @@
       <div class="success" id="success-hero">✦&nbsp; C'est noté. Tu seras prévenue en priorité à l'ouverture du Drop 01.</div>
       <p class="form-note">25 places seulement. La liste d'attente a accès 24h avant tout le monde.</p>
 
+      <div class="places">
+        <div class="demand2">
+          <div class="avatars"><span>C</span><span>M</span><span>A</span><span class="more avmore">+284</span></div>
+          <div class="d2txt"><b><span class="count">287</span> demandes</b><span class="d2sub">pour 25 places · Drop 01</span></div>
+          <span class="d2live"><span class="d2dot"></span>Liste ouverte</span>
+        </div>
+      </div>
     </div>
 
     <div class="card aurora hero-card reveal">
@@ -682,8 +689,8 @@
     <div class="success" id="success-final">✦&nbsp; C'est noté. Tu seras prévenue en priorité à l'ouverture du Drop 01.</div>
     <div class="places reveal" style="margin:44px auto 0">
       <div class="demand2">
-        <div class="avatars"><span>C</span><span>M</span><span>A</span><span class="more" id="avmore">+284</span></div>
-        <div class="d2txt"><b><span id="count">287</span> demandes</b><span class="d2sub">pour 25 places · Drop 01</span></div>
+        <div class="avatars"><span>C</span><span>M</span><span>A</span><span class="more avmore">+284</span></div>
+        <div class="d2txt"><b><span class="count">287</span> demandes</b><span class="d2sub">pour 25 places · Drop 01</span></div>
         <span class="d2live"><span class="d2dot"></span>Liste ouverte</span>
       </div>
     </div>
@@ -708,20 +715,22 @@
   const RESERVED = 287; // ← nombre d'inscrits déjà sur la liste d'attente
   const PLACES = 25;
   let inscrits = RESERVED;
-  const countEl = document.getElementById('count');
-  const avmoreEl = document.getElementById('avmore');
+  const countEls = document.querySelectorAll('.count');
+  const avmoreEls = document.querySelectorAll('.avmore');
   const renderGauge = ()=>{
-    countEl.textContent = inscrits;
-    if(avmoreEl) avmoreEl.textContent = '+' + (inscrits - 3);
+    countEls.forEach(el=>{ el.textContent = inscrits; });
+    avmoreEls.forEach(el=>{ el.textContent = '+' + (inscrits - 3); });
   };
   let started = false;
   const startCounter = ()=>{
     if(started) return; started = true;
     let c = Math.max(0, inscrits - 20);
-    const step = ()=>{ c++; countEl.textContent = c; if(c < inscrits) setTimeout(step, 55); };
+    const step = ()=>{ c++; countEls.forEach(el=>{ el.textContent = c; }); if(c < inscrits) setTimeout(step, 55); };
     step();
   };
-  new IntersectionObserver((e)=>{ if(e[0].isIntersecting) startCounter(); },{threshold:.3}).observe(document.querySelector('.places'));
+  document.querySelectorAll('.places').forEach(p=>{
+    new IntersectionObserver((e)=>{ if(e[0].isIntersecting) startCounter(); },{threshold:.3}).observe(p);
+  });
   renderGauge();
 
   // Accordéons
