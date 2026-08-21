@@ -419,8 +419,10 @@
       <h1 class="hero-title">Lance ta marque avec <span class="grad">Pinterest Ads</span>.</h1>
       <p class="lead"><strong>La première formation e-commerce de France axée Pinterest Ads.</strong> Pendant que tout le monde brûle son budget sur Meta, un canal reste quasi vide — je t'apprends à en faire ton canal principal.</p>
 
-      <form class="waitlist" id="form-hero" name="waitlist-hero" method="POST" data-netlify="true">
-        <input type="hidden" name="form-name" value="waitlist-hero">
+      <form class="waitlist" id="form-hero" method="POST">
+        <input type="hidden" name="access_key" value="35d5b1f6-88a7-4b22-bfe6-164e2b37a915">
+        <input type="hidden" name="subject" value="Nouvelle inscription — liste d'attente Drop 01">
+        <input type="hidden" name="from_name" value="Salty Lau — Waitlist">
         <input type="email" name="email" placeholder="ton@email.com" required>
         <button class="btn" type="submit">Réserver ma place</button>
       </form>
@@ -640,8 +642,10 @@
     <span class="eyebrow reveal"><span class="dot"></span>Drop 01 · 25 places</span>
     <h2 class="reveal d1">Le Drop 01 ouvre bientôt.<br><span class="grad">25 places. Pas une de plus.</span></h2>
     <p class="lead reveal d2" style="max-width:540px">Inscris-toi à la liste d'attente : tu reçois l'accès 24h avant tout le monde, et le prix de lancement réservé au premier drop.</p>
-    <form class="waitlist reveal d3" id="form-final" name="waitlist-final" method="POST" data-netlify="true">
-      <input type="hidden" name="form-name" value="waitlist-final">
+    <form class="waitlist reveal d3" id="form-final" method="POST">
+      <input type="hidden" name="access_key" value="35d5b1f6-88a7-4b22-bfe6-164e2b37a915">
+      <input type="hidden" name="subject" value="Nouvelle inscription — liste d'attente Drop 01">
+      <input type="hidden" name="from_name" value="Salty Lau — Waitlist">
       <input type="email" name="email" placeholder="ton@email.com" required>
       <button class="btn" type="submit">Réserver ma place</button>
     </form>
@@ -694,13 +698,12 @@
     });
   });
 
-  // Formulaires waitlist — envoi vers Netlify Forms + affichage du succès
+  // Formulaires waitlist — envoi vers Web3Forms + affichage du succès
   const bind = (formId, successId)=>{
     const form = document.getElementById(formId);
     form.addEventListener('submit',(ev)=>{
       ev.preventDefault();
-      const data = new URLSearchParams(new FormData(form)).toString();
-      fetch('/', { method:'POST', headers:{'Content-Type':'application/x-www-form-urlencoded'}, body:data }).catch(()=>{});
+      fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) }).catch(()=>{});
       form.style.display = 'none';
       document.getElementById(successId).style.display = 'flex';
       inscrits++; started = true; renderGauge();   // la jauge grimpe en direct
