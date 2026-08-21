@@ -23,14 +23,14 @@
     --font:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html{scroll-behavior:smooth}
-  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  html{scroll-behavior:smooth;overflow-x:clip}
+  body{background:var(--bg);color:var(--text);font-family:var(--font);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:clip;max-width:100vw}
   ::selection{background:var(--pink);color:#fff}
 
   .wrap{max-width:1120px;margin:0 auto;padding:0 24px;position:relative;z-index:2}
   h1,h2,h3{font-weight:800;letter-spacing:-.02em;line-height:1.1}
   h2{font-size:clamp(30px,4.6vw,48px);margin-bottom:16px}
-  .section{padding:104px 0;position:relative}
+  .section{padding:104px 0;position:relative;overflow-x:clip}
   .muted{color:var(--muted)}
   .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
   .lead{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:660px}
@@ -369,7 +369,7 @@
   .faq .module-body p{padding-left:26px}
 
   /* ---------- final ---------- */
-  .final{text-align:center;padding:130px 0;position:relative;overflow:hidden;border-top:1px solid rgba(255,255,255,.07)}
+  .final{text-align:center;padding:130px 0;position:relative;overflow-x:clip;overflow-y:hidden;border-top:1px solid rgba(255,255,255,.07)}
   .final h2{font-size:clamp(32px,5vw,54px)}
   .final .lead{margin:18px auto 0}
   .final .waitlist{margin:36px auto 0;justify-content:center}
