@@ -721,7 +721,7 @@
   const GROWTH_PER_HOUR = 2;     // ← +2 par heure une fois activé
   const PLACES = 25;
   let boost = 0;
-  try { boost = Math.min(1, parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0); } catch(e) {}
+  try { boost = parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0; } catch(e) {}
   const autoGrowth = ()=> GROWTH_START ? Math.max(0, Math.floor((Date.now() - GROWTH_START) / 3600000)) * GROWTH_PER_HOUR : 0;
   let inscrits = RESERVED + autoGrowth() + boost;
   setInterval(()=>{ const n = RESERVED + autoGrowth() + boost; if(n !== inscrits){ inscrits = n; renderGauge(); } }, 60000);
@@ -762,7 +762,7 @@
       fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) }).catch(()=>{});
       form.style.display = 'none';
       document.getElementById(successId).style.display = 'flex';
-      if (boost === 0) { boost = 1; inscrits++; try { localStorage.setItem('sl_boost','1'); } catch(e) {} }
+      boost++; inscrits++; try { localStorage.setItem('sl_boost', String(boost)); } catch(e) {}
       started = true; renderGauge();   // la jauge grimpe en direct et reste après rechargement
     });
   };
