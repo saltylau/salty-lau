@@ -715,12 +715,16 @@
   },{threshold:.15});
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-  // Compteur liste d'attente (change RESERVED avant chaque campagne)
-  const RESERVED = 287; // ← nombre d'inscrits déjà sur la liste d'attente
+  // Compteur liste d'attente
+  const RESERVED = 287;          // ← base d'inscrits
+  const GROWTH_START = null;     // ← timestamp ms de départ de la montée auto (null = désactivé)
+  const GROWTH_PER_HOUR = 2;     // ← +2 par heure une fois activé
   const PLACES = 25;
   let boost = 0;
   try { boost = Math.min(1, parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0); } catch(e) {}
-  let inscrits = RESERVED + boost;
+  const autoGrowth = ()=> GROWTH_START ? Math.max(0, Math.floor((Date.now() - GROWTH_START) / 3600000)) * GROWTH_PER_HOUR : 0;
+  let inscrits = RESERVED + autoGrowth() + boost;
+  setInterval(()=>{ const n = RESERVED + autoGrowth() + boost; if(n !== inscrits){ inscrits = n; renderGauge(); } }, 60000);
   const countEls = document.querySelectorAll('.count');
   const avmoreEls = document.querySelectorAll('.avmore');
   const renderGauge = ()=>{
