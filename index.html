@@ -718,7 +718,9 @@
   // Compteur liste d'attente (change RESERVED avant chaque campagne)
   const RESERVED = 287; // ← nombre d'inscrits déjà sur la liste d'attente
   const PLACES = 25;
-  let inscrits = RESERVED;
+  let boost = 0;
+  try { boost = Math.min(1, parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0); } catch(e) {}
+  let inscrits = RESERVED + boost;
   const countEls = document.querySelectorAll('.count');
   const avmoreEls = document.querySelectorAll('.avmore');
   const renderGauge = ()=>{
@@ -756,7 +758,8 @@
       fetch('https://api.web3forms.com/submit', { method:'POST', body:new FormData(form) }).catch(()=>{});
       form.style.display = 'none';
       document.getElementById(successId).style.display = 'flex';
-      inscrits++; started = true; renderGauge();   // la jauge grimpe en direct
+      if (boost === 0) { boost = 1; inscrits++; try { localStorage.setItem('sl_boost','1'); } catch(e) {} }
+      started = true; renderGauge();   // la jauge grimpe en direct et reste après rechargement
     });
   };
   bind('form-hero','success-hero');
