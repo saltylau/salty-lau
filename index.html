@@ -717,15 +717,26 @@
   document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
   // Compteur liste d'attente
-  const RESERVED = 287;          // ← base d'inscrits
-  const GROWTH_START = null;     // ← timestamp ms de départ de la montée auto (null = désactivé)
-  const GROWTH_PER_HOUR = 2;     // ← +2 par heure une fois activé
+  const RESERVED = 287;          // ← base d'inscrits (= point de départ, comme un zéro)
   const PLACES = 25;
-  let boost = 0;
+  const CNT_GET = 'https://abacus.jasoncameron.dev/get/saltylau/drop01';
+  const CNT_HIT = 'https://abacus.jasoncameron.dev/hit/saltylau/drop01';
+  let boost = 0;                 // nombre d'inscriptions réelles, partagé par tous les visiteurs
   try { boost = parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0; } catch(e) {}
-  const autoGrowth = ()=> GROWTH_START ? Math.max(0, Math.floor((Date.now() - GROWTH_START) / 3600000)) * GROWTH_PER_HOUR : 0;
-  let inscrits = RESERVED + autoGrowth() + boost;
-  setInterval(()=>{ const n = RESERVED + autoGrowth() + boost; if(n !== inscrits){ inscrits = n; renderGauge(); } }, 60000);
+  let inscrits = RESERVED + boost;
+  // on récupère le compteur global au chargement (et toutes les 2 min)
+  const syncCounter = ()=>{
+    fetch(CNT_GET).then(r=>r.json().catch(()=>({}))).then(d=>{
+      // le compteur global fait foi (clé pas encore créée = 0 inscription)
+      const v = (typeof d.value === 'number') ? d.value : 0;
+      boost = v;
+      try { localStorage.setItem('sl_boost', String(boost)); } catch(e) {}
+      const n = RESERVED + boost;
+      if(n !== inscrits){ inscrits = n; renderGauge(); }
+    }).catch(()=>{});
+  };
+  setTimeout(syncCounter, 300);
+  setInterval(syncCounter, 120000);
   const countEls = document.querySelectorAll('.count');
   const avmoreEls = document.querySelectorAll('.avmore');
   const renderGauge = ()=>{
@@ -764,7 +775,15 @@
       form.style.display = 'none';
       document.getElementById(successId).style.display = 'flex';
       boost++; inscrits++; try { localStorage.setItem('sl_boost', String(boost)); } catch(e) {}
-      started = true; renderGauge();   // la jauge grimpe en direct et reste après rechargement
+      started = true; renderGauge();   // la jauge grimpe en direct
+      // incrémente le compteur global (visible par tous les visiteurs)
+      fetch(CNT_HIT).then(r=>r.json()).then(d=>{
+        if(typeof d.value === 'number' && d.value > boost){
+          boost = d.value; inscrits = RESERVED + boost;
+          try { localStorage.setItem('sl_boost', String(boost)); } catch(e) {}
+          renderGauge();
+        }
+      }).catch(()=>{});
     });
   };
   bind('form-hero','success-hero');
