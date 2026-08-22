@@ -719,8 +719,8 @@
   // Compteur liste d'attente
   const RESERVED = 287;          // ← base d'inscrits (= point de départ, comme un zéro)
   const PLACES = 25;
-  const CNT_GET = 'https://abacus.jasoncameron.dev/get/saltylau/drop01';
-  const CNT_HIT = 'https://abacus.jasoncameron.dev/hit/saltylau/drop01';
+  const CNT_GET = 'https://abacus.jasoncameron.dev/get/saltylau/drop01-live';
+  const CNT_HIT = 'https://abacus.jasoncameron.dev/hit/saltylau/drop01-live';
   let boost = 0;                 // nombre d'inscriptions réelles, partagé par tous les visiteurs
   try { boost = parseInt(localStorage.getItem('sl_boost') || '0', 10) || 0; } catch(e) {}
   let inscrits = RESERVED + boost;
