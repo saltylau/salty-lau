@@ -121,7 +121,8 @@
   .card.pink-line:hover{border-color:rgba(232,138,184,.55)}
 
   /* tuile aurora — halo lumineux façon widget iOS */
-  .aurora{border:1px solid rgba(255,255,255,.16);border-radius:30px}
+  .aurora{border:1px solid rgba(255,255,255,.16);border-radius:30px;clip-path:inset(0 round 30px)}
+  .aurora-soft{clip-path:inset(0 round calc(var(--radius) + 6px))}
   .aurora::before{
     content:"";position:absolute;inset:-8%;width:auto;height:auto;
     background:
@@ -471,7 +472,7 @@
     <div>
       <span class="eyebrow"><span class="dot"></span>Drop 01 · Pinterest Ads · 25 places</span>
       <h1 class="hero-title">Lance ta marque avec <span class="grad">Pinterest Ads</span>.</h1>
-      <p class="lead"><strong>Le premier programme e-commerce de France axé Pinterest Ads.</strong> Pendant que tout le monde brûle son budget sur Meta, un canal reste quasi vide — je t'apprends à en faire ton canal principal.</p>
+      <p class="lead"><strong>Le premier programme e-commerce axé Pinterest Ads.</strong> Pendant que tout le monde brûle son budget sur Meta, un canal reste quasi vide — je t'apprends à en faire ton canal principal.</p>
 
       <form class="waitlist" id="form-hero" method="POST">
         <input type="hidden" name="access_key" value="35d5b1f6-88a7-4b22-bfe6-164e2b37a915">
@@ -625,7 +626,7 @@
       <div class="module pink-line reveal"><div class="module-head" style="cursor:default"><span class="chip">📌</span><span class="t">Pinterest Ads — deviens un expert</span><span class="d2sub">9 modules</span></div></div>
       <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🚀</span><span class="t">Compléter &amp; scaler<small style="display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px">Meta, TikTok Ads, email marketing — construis ton écosystème</small></span><span class="d2sub">3 modules</span></div></div>
       <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🔍</span><span class="t">Analyse concurrentielle, veille &amp; études de cas</span><span class="d2sub">3 modules</span></div></div>
-      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🎁</span><span class="t">Bonus<small style="display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px">Communauté, Claude IA, Higgsfield, et plus</small></span><span class="d2sub">3 modules</span></div></div>
+      <div class="module reveal"><div class="module-head" style="cursor:default"><span class="chip">🎁</span><span class="t">Bonus<small style="display:block;font-weight:400;color:var(--muted);font-size:13px;margin-top:2px">Claude code x Shopify</small></span><span class="d2sub">3 modules</span></div></div>
     </div>
     <p class="lead reveal" style="margin-top:26px;font-size:15px">Le détail complet des 23 modules est réservé aux membres du Drop 01.</p>
   </div>
